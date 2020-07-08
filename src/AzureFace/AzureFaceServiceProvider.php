@@ -1,4 +1,5 @@
-<?php namespace AzureFace;
+<?php
+namespace AzureFace;
 
 use Illuminate\Support\ServiceProvider;
 
@@ -25,7 +26,8 @@ class AzureFaceServiceProvider extends ServiceProvider {
 
       $this->app->singleton('niraj-shah.laravel-azure-face-api', function ($app) {
           return new Client(
-            $app['config']->get('cliniko.api_key')
+            $app['config']->get('azure-face.api_key'),
+            $app['config']->get('azure-face.endpoint'),
           );
       });
   }
