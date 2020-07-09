@@ -93,25 +93,27 @@ class AzureFaceClient {
      * @param $payload Optional parameters to send in the request
      * @return array
      */
-    public function request($url, $method = 'GET', $form = [], $params = [])
+    public function request($url, $method = 'GET', $form = [], $params = [], $headers = [])
     {
-        // add headers
+        // default headers
         $payload['headers'] = [
             'Accept'  => 'application/json',
             'Ocp-Apim-Subscription-Key' => $this->getApiKey(),
           ];
 
+        // add additional headers
+        $payload['headers'] = array_merge($headers, $payload['headers']);
+
         $payload['http_errors'] = false;
 
-        $payload['json'] = $form;
+        // add payload
+        $payload = array_merge($form, $payload);
 
-        $endpoint = $this->endpoint . $url;
-        if (count($params) > 0) {
-            $endpoint .= '?' . http_build_query($params);
-        }
+        // add query to URL
+        $payload['query'] = $params;
 
         // make the request
-        $response = $this->guzzle->request($method, $endpoint, $payload);
+        $response = $this->guzzle->request($method, $this->endpoint . $url, $payload);
 
         if ($response->getStatusCode() == '200' || $response->getStatusCode() == '201') {
             $content = $response->getBody()->getContents();
@@ -134,15 +136,27 @@ class AzureFaceClient {
     }
 
     /**
-     * Make a GET API request
+     * Detect Face using Image URL
      *
-     * @param $url The endoint to call
+     * @param $url The file URL
      * @param $payload Optional parameters to send in the request
      * @return array
      */
-    public function detect($payload = [], $params = [])
+    public function detectFacesFromUrl($url, $params = [])
     {
-        return $this->request('detect', 'POST', $payload, $params);
+        return $this->request('detect', 'POST', ['json' => ['url' => $url]], $params);
+    }
+
+    /**
+     * Detect Face using Image file (binary)
+     *
+     * @param $file The file to upload
+     * @param $params Optional parameters to send in the request
+     * @return array
+     */
+    public function detectFacesFromFile($file, $params = [])
+    {
+        return $this->request('detect', 'POST', ['body' => $file], $params, ['Content-Type' => 'application/octet-stream']);
     }
 
 }
