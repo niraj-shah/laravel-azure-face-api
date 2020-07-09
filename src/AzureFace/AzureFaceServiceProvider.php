@@ -25,7 +25,7 @@ class AzureFaceServiceProvider extends ServiceProvider {
       $this->mergeConfigFrom(__DIR__ . '/config/config.php', 'azure-face');
 
       $this->app->singleton('niraj-shah.laravel-azure-face-api', function ($app) {
-          return new Client(
+          return new AzureFaceClient(
             $app['config']->get('azure-face.api_key'),
             $app['config']->get('azure-face.endpoint'),
           );
