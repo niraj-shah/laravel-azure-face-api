@@ -27,7 +27,7 @@ class AzureFaceServiceProvider extends ServiceProvider {
       $this->app->singleton('niraj-shah.laravel-azure-face-api', function ($app) {
           return new AzureFaceClient(
             $app['config']->get('azure-face.api_key'),
-            $app['config']->get('azure-face.endpoint'),
+            $app['config']->get('azure-face.endpoint')
           );
       });
   }
