@@ -23,7 +23,8 @@
     "extra": {
         "laravel": {
             "providers": [
-                "AzureFace\\AzureFaceServiceProvider"
+                "AzureFace\\AzureFaceServiceProvider",
+                "AzureFace\\AzureSpeechServiceProvider"
             ]
         }
     }
