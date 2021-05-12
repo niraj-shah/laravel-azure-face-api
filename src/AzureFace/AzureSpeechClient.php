@@ -129,8 +129,6 @@ class AzureSpeechClient {
         // add query to URL
         $payload['query'] = $params;
 
-        // dd($this->getEndpoint() . $url, $this->getAccessTokenEndpoint(), $payload);
-
         // make the request
         $response = $this->guzzle->request($method, $this->getEndpoint() . $url, $payload);
 
@@ -149,7 +147,6 @@ class AzureSpeechClient {
             if ($errors !== null && isset($errors->error)) {
                 throw new \Exception('Client Error: ' . (isset($errors->error->message) ? $errors->error->message : $content), $response->getStatusCode());
             } else {
-                dd($response);
                 throw new \Exception('Client Error: ' . $response->getStatusCode() . ' ' . $response->getReasonPhrase(), $response->getStatusCode());
             }
         }
