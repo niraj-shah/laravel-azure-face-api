@@ -2,11 +2,15 @@
     "name": "niraj-shah/laravel-azure-face-api",
     "description": "Laravel package to access Azure Cognitive Face APIs",
     "type": "library",
-    "keywords": ["face","laravel","azure"],
+    "keywords": [
+        "face",
+        "laravel",
+        "azure"
+    ],
     "require": {
-    		"php": "^7.1.3",
-    		"guzzlehttp/guzzle": "~6.0",
-    		"nesbot/carbon": "^2.23"
+        "php": "^7.1.3|^8.0",
+        "guzzlehttp/guzzle": "~6.0",
+        "nesbot/carbon": "^2.23"
     },
     "license": "MIT",
     "authors": [
