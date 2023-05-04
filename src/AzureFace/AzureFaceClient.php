@@ -3,7 +3,8 @@ namespace AzureFace;
 
 use GuzzleHttp\Client as Guzzle;
 
-class AzureFaceClient {
+class AzureFaceClient
+{
 
     /**
      * The API endpoint
@@ -97,9 +98,9 @@ class AzureFaceClient {
     {
         // default headers
         $payload['headers'] = [
-            'Accept'  => 'application/json',
+            'Accept' => 'application/json',
             'Ocp-Apim-Subscription-Key' => $this->getApiKey(),
-          ];
+        ];
 
         // add additional headers
         $payload['headers'] = array_merge($headers, $payload['headers']);
@@ -115,7 +116,7 @@ class AzureFaceClient {
         // make the request
         $response = $this->guzzle->request($method, $this->endpoint . $url, $payload);
 
-        if ($response->getStatusCode() == '200' || $response->getStatusCode() == '201') {
+        if ($response->getStatusCode() == '200' || $response->getStatusCode() == '201' || $response->getStatusCode() == '299') {
             $content = $response->getBody()->getContents();
             if (empty($content)) {
                 return true;
